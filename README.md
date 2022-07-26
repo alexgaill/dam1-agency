@@ -6,6 +6,19 @@ Vous pouvez retrouver le projet sur <https://github.com/alexgaill/dam1-agency>.
 
 ## Pour lancer le projet
  
+```sh
+    # Installez les dépendances
+    composer install
+    # Modifiez le fichier .env
+    # Créez la BDD
+    symfony console d:d:c
+    # Migrez les migrations
+    symfony console d:m:m
+    # Executez les fixtures
+    symfony console d:f:l
+    # Lancez le serveur
+    symfony console server:start
+```
 
 ## Une question sur le projet? 
 ### [Contactez-moi](mailto:contact@steptosuccess.com)
