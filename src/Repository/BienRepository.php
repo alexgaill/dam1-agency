@@ -39,28 +39,44 @@ class BienRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Bien[] Returns an array of Bien objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('b.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Bien[] Returns an array of Bien objects
+     */
+    public function filteredBiens(
+        ?bool $transactionType,
+        ?string $surfaceMin,
+        ?string $surfaceMax,
+        ?string $nbPiecesMin,
+        ?string $nbPiecesMax,
+        ?string $prixMin,
+        ?string $prixMax
+    ): array {
+        $qb = $this->createQueryBuilder('b');
+        // dump($transactionType);
+        if ($transactionType) {
+            $qb->andWhere("b.transactionType = $transactionType");
+        }
+        if ($surfaceMin) {
+            $qb->andWhere("b.surface >= $surfaceMin");
+        }
+        if ($surfaceMax) {
+            $qb->andWhere("b.surface <= $surfaceMax");
+        }
+        if ($nbPiecesMin) {
+            $qb->andWhere("b.surface >= $nbPiecesMin");
+        }
+        if ($nbPiecesMax) {
+            $qb->andWhere("b.surface <= $nbPiecesMax");
+        }
+        if ($prixMin) {
+            $qb->andWhere("b.surface >= $prixMin");
+        }
+        if ($prixMax) {
+            $qb->andWhere("b.surface <= $prixMax");
+        }
 
-//    public function findOneBySomeField($value): ?Bien
-//    {
-//        return $this->createQueryBuilder('b')
-//            ->andWhere('b.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        return $qb->getQuery()
+            ->getResult();
+    }
+
 }

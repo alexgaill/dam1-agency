@@ -30,7 +30,7 @@
 							<a href={{ path("home") }} class="nav-link nav-link-light">Accueil</a>
 						</li>
 						<li class="nav-item nav-item-light">
-							<a href="#" class="nav-link nav-link-light">Nos biens</a>
+							<a href={{ path('app_bien') }} class="nav-link nav-link-light">Nos biens</a>
 						</li>
 						{% if is_granted("ROLE_USER") %}
 							<li class="nav-item nav-item-light">

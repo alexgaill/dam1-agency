@@ -1,17 +1,34 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
 {% block body %}
-	<section id="header" class="row my-5">
-		<img src="{{ asset("/assets/img/agence.jpg") }}" alt="Photo de devanture de l'agence" class="col-6">
-		<div class="col-6">
-			<h2>Bienvenue sur le site de notre agence</h2>
-			<h3>Retrouvez tous les biens près de chez vous au meilleur prix</h3>
+	<section id="header">
+		<h1 class="my-3">Retrouvez tous nos biens disponibles ici</h1>
+		{{ form(form) }}
+		<div>
+			<hr>
+			<p class="h5">Nombre de biens disponibles:
+				<span class="text-success">{{ pagination.getTotalItemCount }}</span>
+			</p>
+            <table class="table">
+                <tr>
+                    <th{% if pagination.isSorted('nbPieces') %} class="sorted text-warning"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Pièces', 'nbPieces') }}
+                    </th>
+                    <th{% if pagination.isSorted('surface') %} class="sorted text-warning"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Surface', 'surface') }}
+                    </th>
+                    <th{% if pagination.isSorted('prix') %} class="sorted bg-warning"{% endif %}>
+                        {{ knp_pagination_sortable(pagination, 'Prix', 'prix') }}
+                    </th>
+                </tr>
+            </table>
+			<hr>
 		</div>
 	</section>
 	<section id="content" class="d-flex justify-content-around flex-wrap">
-		{% for bien in biens %}
+		{% for bien in pagination %}
 			<article class="card text-dark m-3" style="width: 18rem;">
-				<img src="https://fakeimg.pl/300x300" class="card-img-top" alt="...">
+				<img src="https://fakeimg.pl/300x150" class="card-img-top" alt="...">
 				<div class="card-body">
 					<h5 class="card-title">{{bien.titre}}</h5>
 					<p class="card-text">nb de pièces:
@@ -25,5 +42,9 @@
 				</div>
 			</article>
 		{% endfor %}
+		<div class="navigation">
+			{{ knp_pagination_render(pagination) }}
+		</div>
 	</section>
+
 {% endblock %}
