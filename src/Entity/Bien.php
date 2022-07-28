@@ -109,11 +109,14 @@ class Bien
 
     public function getTransactionType(): ?string
     {
-        $types = [
-            "A louer",
-            "A vendre"
-        ];
-        return $types[$this->transactionType];
+        if ($this->transactionType) {
+            $types = [
+                "A louer",
+                "A vendre"
+            ];
+            return $types[$this->transactionType];
+        }
+        return $this->transactionType;
     }
 
     public function setTransactionType(bool $transactionType): self
